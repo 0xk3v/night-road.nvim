@@ -1,0 +1,130 @@
+*night-road.txt*  A dark green-teal colorscheme for Neovim
+
+==============================================================================
+CONTENTS                                                 *night-road-contents*
+
+    1. Introduction ........................ |night-road-introduction|
+    2. Requirements ........................ |night-road-requirements|
+    3. Installation ........................ |night-road-installation|
+    4. Configuration ....................... |night-road-configuration|
+    5. Lualine ............................. |night-road-lualine|
+    6. Palette API ......................... |night-road-api|
+    7. Supported plugins ................... |night-road-plugins|
+    8. License ............................. |night-road-license|
+
+==============================================================================
+1. INTRODUCTION                                      *night-road-introduction*
+
+night-road is a dark colorscheme with a deep green-teal background, mint
+accents, gold constants and soft purple keywords. It highlights Vim's built-in
+groups, Treesitter captures, LSP semantic tokens, diagnostics and diffs, and
+ships a matching lualine theme.
+
+==============================================================================
+2. REQUIREMENTS                                      *night-road-requirements*
+
+- Neovim 0.12 or newer
+- A terminal with true color support ('termguicolors' is enabled for you)
+
+==============================================================================
+3. INSTALLATION                                      *night-road-installation*
+
+With lazy.nvim: >lua
+    {
+      "YOUR-GITHUB-USERNAME/night-road.nvim",
+      lazy = false,
+      priority = 1000,
+      config = function()
+        require("night-road").setup({})
+        vim.cmd.colorscheme("night-road")
+      end,
+    }
+<
+|night-road.setup()| only stores your options. The colorscheme is applied
+when you run `:colorscheme night-road`.
+
+==============================================================================
+4. CONFIGURATION                                    *night-road-configuration*
+
+Pass options to `require("night-road").setup()`. These are the defaults: >lua
+    require("night-road").setup({
+      transparent = true,
+      terminal_colors = true,
+      styles = {
+        comments = { italic = true },
+        keywords = { bold = false, italic = false },
+        functions = { bold = false },
+        variables = {},
+      },
+      integrations = {
+        treesitter = true,
+        lsp = true,
+        diagnostics = true,
+        plugins = true,
+      },
+    })
+<
+                                                      *night-road-transparent*
+transparent ~
+    When true, the main editor background is left unset so your terminal
+    background shows through. Set it to false for a solid background.
+
+                                                  *night-road-terminal_colors*
+terminal_colors ~
+    When true, sets the 16 terminal colors (see |terminal-config|) so
+    |:terminal| uses the night-road ANSI colors.
+
+                                                           *night-road-styles*
+styles ~
+    Text style for specific groups. `comments` accepts `italic`, `keywords`
+    accepts `bold` and `italic`, `functions` accepts `bold`. `variables` takes
+    any attributes accepted by |nvim_set_hl()|.
+
+                                                     *night-road-integrations*
+integrations ~
+    Set an entry to false to skip that group of highlights. `treesitter`,
+    `lsp`, `diagnostics` and `plugins` can be disabled. Editor, syntax and
+    diff highlights are always loaded.
+
+==============================================================================
+5. LUALINE                                                *night-road-lualine*
+
+A matching theme is included: >lua
+    require("lualine").setup({
+      options = { theme = "night-road" },
+    })
+<
+
+==============================================================================
+6. PALETTE API                                                *night-road-api*
+
+                                                          *night-road.setup()*
+require("night-road").setup({opts})
+    Store options. Does not apply the colorscheme.
+
+                                                           *night-road.load()*
+require("night-road").load()
+    Apply the colorscheme using the stored options. This is what
+    `:colorscheme night-road` calls.
+
+                                                         *night-road.colors()*
+require("night-road").colors()
+    Returns a copy of the palette as a table of hex strings, for building
+    matching themes for other tools: >lua
+        local colors = require("night-road").colors()
+        print(colors.green) -- #7fd3a8
+<
+
+==============================================================================
+7. SUPPORTED PLUGINS                                      *night-road-plugins*
+
+Telescope, nvim-cmp, blink.cmp, gitsigns, which-key, indent guides, neo-tree,
+nvim-tree, lazy.nvim, mason.nvim and Snacks. Disable them all with
+`integrations.plugins = false`.
+
+==============================================================================
+8. LICENSE                                                *night-road-license*
+
+MIT. See the LICENSE file in the repository.
+
+ vim:tw=78:ts=8:ft=help:norl:
