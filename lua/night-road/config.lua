@@ -1,6 +1,7 @@
 local M = {}
 
 M.defaults = {
+	variant = "night",
 	transparent = true,
 	terminal_colors = true,
 

@@ -279,7 +279,7 @@ function M.setup(c, config)
 
 	-- Gitsigns
 	hi(0, "GitSignsAdd", {
-		fg = c.green,
+		fg = c.git_add,
 	})
 
 	hi(0, "GitSignsChange", {
@@ -371,7 +371,7 @@ function M.setup(c, config)
 	})
 
 	hi(0, "NeoTreeGitAdded", {
-		fg = c.green,
+		fg = c.git_add,
 	})
 
 	hi(0, "NeoTreeGitModified", {
@@ -411,7 +411,7 @@ function M.setup(c, config)
 	})
 
 	hi(0, "NvimTreeGitNew", {
-		fg = c.green,
+		fg = c.git_add,
 	})
 
 	hi(0, "NvimTreeGitDirty", {
@@ -521,7 +521,7 @@ function M.setup(c, config)
 	hi(0, "SnacksPickerTotals", { fg = c.muted })
 	hi(0, "SnacksPickerGitStatus", { fg = c.muted })
 	hi(0, "SnacksPickerGitStatusUntracked", { fg = c.muted })
-	hi(0, "SnacksPickerGitStatusAdded", { fg = c.green })
+	hi(0, "SnacksPickerGitStatusAdded", { fg = c.git_add })
 	hi(0, "SnacksPickerGitStatusModified", { fg = c.amber })
 	hi(0, "SnacksPickerGitStatusDeleted", { fg = c.red_bright })
 	hi(0, "SnacksIndent", { fg = c.overlay })

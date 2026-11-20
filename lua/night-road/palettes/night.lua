@@ -1,4 +1,4 @@
-local palette = {
+return {
 	-- Backgrounds
 	bg = "#0d1918",
 	bg_deep = "#070f0e", -- sidebars, tabline, inactive statusline
@@ -22,6 +22,7 @@ local palette = {
 
 	green = "#7fd3a8", -- functions, cursor, headings, git add
 	green_dim = "#5f8a7a",
+	git_add = "#7fd3a8", -- git and diff additions (a real green in every variant)
 
 	blue = "#9fb3ae", -- builtin types, modules: pale mint-gray
 	blue_bright = "#9ccfd8", -- properties, members
@@ -40,5 +41,3 @@ local palette = {
 	diff_change = "#14242b",
 	diff_delete = "#2a1513",
 }
-
-return palette

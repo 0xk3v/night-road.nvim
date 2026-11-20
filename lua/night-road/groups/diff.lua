@@ -5,7 +5,7 @@ function M.setup(c)
 
 	-- Diff backgrounds
 	hi(0, "DiffAdd", {
-		fg = c.green,
+		fg = c.git_add,
 		bg = c.diff_add,
 	})
 
@@ -27,7 +27,7 @@ function M.setup(c)
 
 	-- Generic diff groups
 	hi(0, "Added", {
-		fg = c.green,
+		fg = c.git_add,
 	})
 
 	hi(0, "Changed", {

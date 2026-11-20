@@ -105,7 +105,7 @@ function M.setup(c, config)
 	hi(0, "@markup.quote", { fg = c.amber_dim, italic = true })
 
 	-- Diff
-	hi(0, "@diff.plus", { fg = c.green })
+	hi(0, "@diff.plus", { fg = c.git_add })
 	hi(0, "@diff.minus", { fg = c.red_bright })
 	hi(0, "@diff.delta", { fg = c.blue_bright })
 

@@ -1,7 +1,9 @@
 local M = {}
 
-function M.setup(c)
-	local colors = {
+-- ANSI colors from palette roles. Variants whose roles don't match the ANSI
+-- hues (e.g. an orange "green") can define `ansi`, a list of 16 colors.
+local function from_roles(c)
+	return {
 		c.surface, -- 0: black
 		c.red, -- 1: red
 		c.green_dim, -- 2: green
@@ -19,6 +21,10 @@ function M.setup(c)
 		c.teal_bright, -- 14: bright cyan
 		c.text, -- 15: bright white
 	}
+end
+
+function M.setup(c)
+	local colors = c.ansi or from_roles(c)
 
 	for i, color in ipairs(colors) do
 		vim.g["terminal_color_" .. (i - 1)] = color
