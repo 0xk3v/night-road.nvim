@@ -7,18 +7,20 @@ CONTENTS                                                 *night-road-contents*
     2. Requirements ........................ |night-road-requirements|
     3. Installation ........................ |night-road-installation|
     4. Configuration ....................... |night-road-configuration|
-    5. Lualine ............................. |night-road-lualine|
-    6. Palette API ......................... |night-road-api|
-    7. Supported plugins ................... |night-road-plugins|
-    8. License ............................. |night-road-license|
+    5. Variants ............................ |night-road-variants|
+    6. Lualine ............................. |night-road-lualine|
+    7. Palette API ......................... |night-road-api|
+    8. Supported plugins ................... |night-road-plugins|
+    9. License ............................. |night-road-license|
 
 ==============================================================================
 1. INTRODUCTION                                      *night-road-introduction*
 
 night-road is a dark colorscheme with a deep green-teal background, mint
-accents, gold constants and soft purple keywords. It highlights Vim's built-in
-groups, Treesitter captures, LSP semantic tokens, diagnostics and diffs, and
-ships a matching lualine theme.
+accents, gold constants and soft purple keywords. It comes in several
+variants (see |night-road-variants|), highlights Vim's built-in groups,
+Treesitter captures, LSP semantic tokens, diagnostics and diffs, and ships a
+matching lualine theme.
 
 ==============================================================================
 2. REQUIREMENTS                                      *night-road-requirements*
@@ -31,7 +33,7 @@ ships a matching lualine theme.
 
 With lazy.nvim: >lua
     {
-      "YOUR-GITHUB-USERNAME/night-road.nvim",
+      "0xk3v/night-road.nvim",
       lazy = false,
       priority = 1000,
       config = function()
@@ -48,6 +50,7 @@ when you run `:colorscheme night-road`.
 
 Pass options to `require("night-road").setup()`. These are the defaults: >lua
     require("night-road").setup({
+      variant = "night",
       transparent = true,
       terminal_colors = true,
       styles = {
@@ -64,6 +67,12 @@ Pass options to `require("night-road").setup()`. These are the defaults: >lua
       },
     })
 <
+                                                          *night-road-variant*
+variant ~
+    The palette `:colorscheme night-road` loads. One of `"night"`,
+    `"blue-hour"`, `"forest"`, `"catppuccin"` or `"gruvbox"`. See
+    |night-road-variants|. An unknown name is an error.
+
                                                       *night-road-transparent*
 transparent ~
     When true, the main editor background is left unset so your terminal
@@ -87,43 +96,99 @@ integrations ~
     diff highlights are always loaded.
 
 ==============================================================================
-5. LUALINE                                                *night-road-lualine*
+5. VARIANTS                                              *night-road-variants*
+
+    Variant         Background            Accent      Keywords ~
+    night           deep green-teal       mint        soft purple
+    blue-hour       deep blue             sky blue    violet
+    forest          deep green            lime        lilac
+    catppuccin      Catppuccin Mocha      peach       mauve
+    gruvbox         Gruvbox dark (hard)   orange      purple
+
+`night` is the default. Pick another with the `variant` option, or load one
+directly without changing your options:
+>vim
+    :colorscheme night-road-gruvbox
+<
+Every variant has a `night-road-<variant>` colorscheme, and |g:colors_name|
+is set to that name. `:colorscheme night-road` loads the configured variant
+and sets |g:colors_name| to `night-road`.
+
+`catppuccin` and `gruvbox` borrow those palettes but use night-road's
+highlight groups. Some of their colors are a little lighter than the
+originals to keep contrast against the background.
+
+==============================================================================
+6. LUALINE                                                *night-road-lualine*
 
 A matching theme is included: >lua
     require("lualine").setup({
       options = { theme = "night-road" },
     })
 <
+The `night-road` theme uses the variant that was loaded last. Each variant
+also has its own theme, `night-road-<variant>`, so `theme = "auto"` works
+with `:colorscheme night-road-<variant>`.
 
 ==============================================================================
-6. PALETTE API                                                *night-road-api*
+7. PALETTE API                                                *night-road-api*
 
                                                           *night-road.setup()*
 require("night-road").setup({opts})
-    Store options. Does not apply the colorscheme.
+    Store options. Does not apply the colorscheme. Errors on an unknown
+    `variant`.
 
                                                            *night-road.load()*
-require("night-road").load()
+require("night-road").load({overrides})
     Apply the colorscheme using the stored options. This is what
-    `:colorscheme night-road` calls.
+    `:colorscheme night-road` calls. `overrides.variant` loads that variant
+    for this call only, without changing the stored options; the
+    `night-road-<variant>` colorschemes use it.
 
                                                          *night-road.colors()*
 require("night-road").colors()
-    Returns a copy of the palette as a table of hex strings, for building
-    matching themes for other tools: >lua
+    Returns a copy of the palette of the variant that was loaded last, as a
+    table of hex strings, for building matching themes for other tools: >lua
         local colors = require("night-road").colors()
-        print(colors.green) -- #7fd3a8
+        print(colors.green) -- #7fd3a8 in night
 <
+                                                   *night-road-palette-roles*
+Palette keys are named after the hues of `night`, but each one is a role, so
+its color depends on the variant (`green` is orange in `gruvbox`):
+
+    bg, bg_deep         editor, sidebars and tabline
+    surface, overlay    floats and cursorline, folds and quickfix line
+    muted               comments, line numbers
+    subtle, text        secondary text, main text
+    green               functions, cursor, headings
+    teal_bright         function calls
+    teal                types
+    blue                modules, builtin types
+    blue_bright         properties, members
+    purple              keywords
+    amber               numbers, constants
+    amber_dim           strings
+    red, red_dim        control flow, conditionals and loops
+    red_bright          errors
+    green_dim           dim accent
+    git_add             git and diff additions (green in every variant)
+    border, selection, selection_fg, search
+                        UI
+    diff_add, diff_change, diff_delete
+                        diff backgrounds
+    ansi                optional list of the 16 terminal colors; set in
+                        every variant except `night`, which derives them
+                        from the roles above
 
 ==============================================================================
-7. SUPPORTED PLUGINS                                      *night-road-plugins*
+8. SUPPORTED PLUGINS                                      *night-road-plugins*
 
 Telescope, nvim-cmp, blink.cmp, gitsigns, which-key, indent guides, neo-tree,
 nvim-tree, lazy.nvim, mason.nvim and Snacks. Disable them all with
 `integrations.plugins = false`.
 
 ==============================================================================
-8. LICENSE                                                *night-road-license*
+9. LICENSE                                                *night-road-license*
 
 MIT. See the LICENSE file in the repository.
 
