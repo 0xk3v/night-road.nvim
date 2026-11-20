@@ -41,8 +41,8 @@ return {
 	ansi = {
 		"#282828", -- 0: black
 		"#fc7464", -- 1: red
-		"#6d6e3b", -- 2: green
-		"#b8bb26", -- 3: yellow
+		"#98971a", -- 2: green
+		"#d79921", -- 3: yellow
 		"#458588", -- 4: blue
 		"#b16286", -- 5: magenta
 		"#689d6a", -- 6: cyan

@@ -23,10 +23,13 @@ local function from_roles(c)
 	}
 end
 
-function M.setup(c)
-	local colors = c.ansi or from_roles(c)
+--- Returns the 16 ANSI colors for a palette.
+function M.colors(c)
+	return c.ansi or from_roles(c)
+end
 
-	for i, color in ipairs(colors) do
+function M.setup(c)
+	for i, color in ipairs(M.colors(c)) do
 		vim.g["terminal_color_" .. (i - 1)] = color
 	end
 end

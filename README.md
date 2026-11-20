@@ -13,7 +13,7 @@ gold constants and soft purple keywords, plus variants in other colors.
 - Diagnostics and diff highlights
 - Plugin support: Telescope, nvim-cmp, blink.cmp, gitsigns, which-key,
   indent guides, neo-tree, nvim-tree, lazy.nvim, mason.nvim, Snacks
-- Matching lualine theme
+- Matching lualine theme, plus Ghostty and tmux themes in `extras/`
 - Optional transparent background
 - Terminal (ANSI) colors set for `:terminal`
 
@@ -123,6 +123,23 @@ The `night-road` theme uses the variant that was loaded last. Each variant also
 has its own theme, `night-road-<variant>`, so `theme = "auto"` works with
 `:colorscheme night-road-<variant>`.
 
+## Extras
+
+`extras/` has Ghostty and tmux themes for every variant, generated from the
+palettes.
+
+Ghostty, in your config:
+
+```ini
+theme = /path/to/night-road.nvim/extras/ghostty/night-road-gruvbox
+```
+
+tmux sets the status bar, window list, pane borders and messages:
+
+```tmux
+source-file /path/to/night-road.nvim/extras/tmux/night-road-gruvbox.tmux
+```
+
 ## Using the palette
 
 ```lua
@@ -158,6 +175,13 @@ Run the smoke tests from the project root:
 
 ```bash
 nvim --headless -u NONE --cmd "set rtp+=." -l tests/colorscheme_spec.lua
+```
+
+After changing a palette, regenerate `extras/` (the tests fail while it is out
+of date):
+
+```bash
+nvim --headless -u NONE --cmd "set rtp+=." -l scripts/extras.lua
 ```
 
 ## License

@@ -9,9 +9,10 @@ CONTENTS                                                 *night-road-contents*
     4. Configuration ....................... |night-road-configuration|
     5. Variants ............................ |night-road-variants|
     6. Lualine ............................. |night-road-lualine|
-    7. Palette API ......................... |night-road-api|
-    8. Supported plugins ................... |night-road-plugins|
-    9. License ............................. |night-road-license|
+    7. Extras .............................. |night-road-extras|
+    8. Palette API ......................... |night-road-api|
+    9. Supported plugins ................... |night-road-plugins|
+   10. License ............................. |night-road-license|
 
 ==============================================================================
 1. INTRODUCTION                                      *night-road-introduction*
@@ -131,7 +132,19 @@ also has its own theme, `night-road-<variant>`, so `theme = "auto"` works
 with `:colorscheme night-road-<variant>`.
 
 ==============================================================================
-7. PALETTE API                                                *night-road-api*
+7. EXTRAS                                                  *night-road-extras*
+
+The `extras/` folder of the plugin has themes for other tools for every
+variant, generated from the palettes.
+
+Ghostty: >ini
+    theme = /path/to/night-road.nvim/extras/ghostty/night-road-gruvbox
+<
+tmux (status bar, window list, pane borders and messages): >tmux
+    source-file /path/to/night-road.nvim/extras/tmux/night-road-gruvbox.tmux
+<
+==============================================================================
+8. PALETTE API                                                *night-road-api*
 
                                                           *night-road.setup()*
 require("night-road").setup({opts})
@@ -181,14 +194,14 @@ its color depends on the variant (`green` is orange in `gruvbox`):
                         from the roles above
 
 ==============================================================================
-8. SUPPORTED PLUGINS                                      *night-road-plugins*
+9. SUPPORTED PLUGINS                                      *night-road-plugins*
 
 Telescope, nvim-cmp, blink.cmp, gitsigns, which-key, indent guides, neo-tree,
 nvim-tree, lazy.nvim, mason.nvim and Snacks. Disable them all with
 `integrations.plugins = false`.
 
 ==============================================================================
-9. LICENSE                                                *night-road-license*
+10. LICENSE                                               *night-road-license*
 
 MIT. See the LICENSE file in the repository.
 

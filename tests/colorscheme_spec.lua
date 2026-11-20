@@ -206,4 +206,19 @@ check(not ok and tostring(err):find("unknown variant", 1, true), "setup() should
 
 theme.setup()
 
+-- extras/ must match the palettes.
+for path, expected in pairs(require("night-road.extras").files()) do
+	local file = io.open(path, "r")
+	local actual = file and file:read("*a")
+
+	if file then
+		file:close()
+	end
+
+	check(
+		actual == expected,
+		path .. " is out of date, run: nvim --headless -u NONE --cmd \"set rtp+=.\" -l scripts/extras.lua"
+	)
+end
+
 print("Night Road: all smoke tests passed")
